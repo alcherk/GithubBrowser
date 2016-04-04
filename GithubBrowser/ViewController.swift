@@ -31,11 +31,13 @@ class ViewController: NSViewController {
     }
         
     @IBAction func loginClick(sender: AnyObject) {
+        loginButton.enabled = false
         if (!GithubManager.sharedInstance.hasOAuthToken()) {
             GithubManager.sharedInstance.auth({
                 self.listRepos()
             },
             error: { msg in
+                self.loginButton.enabled = true
                 self.statusText.stringValue = msg
             });
         }
